@@ -37,14 +37,12 @@ def menu3() -> int:
     print("--------------------------------------")
     return opcion
 
-def registro():
-    nombre_completo = input("Ingrese su nombre completo: ")
-    cedula = int(input("Ingrese su cedula: "))
-    contraseña = input("Ingrese su clave nueva: ")
-    correo_electronico = input("Ingrese su correo electronico: ")
+def registro(nombre_completo, cedula, contraseña, correo_electronico):
     regi = Registro(nombre_completo, cedula, contraseña, correo_electronico)
     print("Perfil Registrado")
+    print(regi)
     return regi
+
 
 class Registro:
 

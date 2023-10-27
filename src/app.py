@@ -19,7 +19,7 @@ class Manager(tk.Tk):
         container.grid_rowconfigure(0, weight = 1)
 
         self.frames = {}
-        for F in (Inicio, Pantalla):
+        for F in (Inicio, Menu_Login, Registro, Login, Menu_Principal):
             frame = F(container, self)
             self.frames[F] = frame
             frame.grid(row = 0, column = 0, sticky = tk.NSEW)
