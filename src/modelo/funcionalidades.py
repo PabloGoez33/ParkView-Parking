@@ -1,14 +1,16 @@
 def registro(nombre_completo, cedula, contraseña, correo_electronico):
     regi = Usuario.Registro(nombre_completo, cedula, contraseña, correo_electronico)
     f = open("registros.txt", "a")
-    f.write(f"\n Resgistro: \n Nombre Completo= {nombre_completo} \n Cedula= {cedula} \n Contraseña= {contraseña} \n Correo= {correo_electronico} \n")
+    f.write(f"Nombre Completo: {nombre_completo}\nCedula: {cedula}\nContraseña: {contraseña}\nCorreo: {correo_electronico}\n")
     f.close
     return regi
 
 def iniciar_sesion(cedula, contraseña):
     iniciar = Usuario.Login(cedula, contraseña)
-    iniciar.validar_contraseña(cedula, contraseña)
-    return iniciar
+    if iniciar.validar_contraseña() == True:
+        return iniciar
+    else:
+        return
 
 def registrar_vehiculo(tipo, placa):
     vehiculo = Usuario.Registrar_Vehiculo(tipo, placa)
@@ -40,12 +42,22 @@ class Usuario:
             self.cedula: int = cedula
             self.contraseña: str = contraseña
         
-        def validar_contraseña(self, cedula: int, contraseña: str):
-            f = open("registros.txt", "r")
-            f.close
-            print(f)
-            print("Usuario logueado correctamente")
-            print("Bienvenido")
+        def validar_contraseña(self):
+
+            cedu = 0
+            contra = ""
+
+            with open("registros.txt", "r") as archivo:
+                for linea in archivo:
+                    if linea.startswith("Cedula:"):
+                        cedu += int(linea.split(":")[1].strip())
+                    if linea.startswith("Contraseña:"):
+                        contra += str(linea.split(":")[1].strip())
+                if cedu == self.cedula and contra == self.contraseña:
+                    print("Usuario logueado correctamente")
+                    print("Bienvenido")
+                else:
+                    print("Usuario no encontrado")
 
     
     class Cambiar_Contraseña:

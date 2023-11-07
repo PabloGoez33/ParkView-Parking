@@ -1,12 +1,9 @@
+Nombre Completo: Luis Pablo Goez
+Cedula: 1000884447
+Contraseña: 1234
+Correo: luispablogoez@gmail.com
 
- Resgistro: 
- Nombre Completo= 11 
- Cedula= 11 
- Contraseña= 11 
- Correo= 11 
-
- Resgistro: 
- Nombre Completo= 11 
- Cedula= 11 
- Contraseña= 11 
- Correo= 11 
+Nombre Completo: 11
+Cedula: 11
+Contraseña: 11
+Correo: 11
