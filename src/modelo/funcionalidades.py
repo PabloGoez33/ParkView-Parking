@@ -1,92 +1,83 @@
-def menu1() -> int:
-    print("--------------------------------------")
-    print("\tBIENVENIDO A PARKVIEW\t\t")
-    print("--------------------------------------")
-    print("1. Menú.")
-    print("2. Salir.")
-    print("--------------------------------------")
-    opcion = int(input("Ingrese la opcion: "))
-    print("--------------------------------------")
-    return opcion
-
-def menu2() -> int:
-    print("--------------------------------------")
-    print("\t     MENU PARKVIEW\t\t")
-    print("--------------------------------------")
-    print("1. Registro.")
-    print("2. Log in.")
-    print("3. Salir.")
-    print("--------------------------------------")
-    opcion = int(input("Ingrese la opcion: "))
-    print("--------------------------------------")
-    return opcion
-
-def menu3() -> int:
-    print("--------------------------------------")
-    print("\t     MENU PARKVIEW\t\t")
-    print("--------------------------------------")
-    print("1. Mirar celdas disponibles.")
-    print("2. Reservar celda.")
-    print("3. Ingresar placa.")
-    print("4. Cancelar reserva.")
-    print("5. Calcular pago.")
-    print("6. Generar recibo.")
-    print("7. Salir.")
-    print("--------------------------------------")
-    opcion = int(input("Ingrese la opcion: "))
-    print("--------------------------------------")
-    return opcion
-
 def registro(nombre_completo, cedula, contraseña, correo_electronico):
-    regi = Registro(nombre_completo, cedula, contraseña, correo_electronico)
-    print("Perfil Registrado")
-    print(regi)
+    regi = Usuario.Registro(nombre_completo, cedula, contraseña, correo_electronico)
+    f = open("registros.txt", "a")
+    f.write(f"\n Resgistro: \n Nombre Completo= {nombre_completo} \n Cedula= {cedula} \n Contraseña= {contraseña} \n Correo= {correo_electronico} \n")
+    f.close
     return regi
 
+def iniciar_sesion(cedula, contraseña):
+    iniciar = Usuario.Login(cedula, contraseña)
+    iniciar.validar_contraseña(cedula, contraseña)
+    return iniciar
 
-class Registro:
+def registrar_vehiculo(tipo, placa):
+    vehiculo = Usuario.Registrar_Vehiculo(tipo, placa)
+    print("vehiculo registrado correctamente")
+    vehi = tipo.title()
+    if vehi == "Carro":
+        print("La tarifa de parqueo para los carros es de 15.000 por hora")
+    else:
+        print("La tarifa de parqueo para las motos es de 9.000 por hora")
+    return vehiculo
 
-    def __init__(self, nombre: str, cedula: int, contraseña: str, correo: str):
-        self.nombre_completo: str = nombre
-        self.cedula: int = cedula
-        self.contraseña: str = contraseña
-        self.correo_electronico: str = correo
 
-    def login(self):
-        print(self.cedula)
-        print(self.contraseña)
-        print("--------------------------------------")
-        print("\t\tLOGIN")
-        print("--------------------------------------")
-        cedu = int(input("CEDULA: "))
-        contra = input("CONTRASEÑA: ")
-        print("--------------------------------------")
-        if cedu == self.cedula and contra == self.contraseña:
-            print("Bienvenido al sistema de PARKVIEW")
-            opcion = menu3()
-        else:
-            print("Contraseña o usuario incorrecto")
-            print("Olvido su contraseña, ¿Desea restaurarla?")
-            print("1. Si.")
-            print("2. No.")
-            opcion = int(input("Ingrese la opcion: "))
-            if opcion == 1:
-                self.olvido_contraseña()
+def cambio_contraseña(cedula, contraseña):
+    cambio = Usuario.Cambiar_Contraseña(cedula, contraseña)
+    print("La contraseña se cambió correctamente")
+
+class Usuario:
+    class Registro:
+        def __init__(self, nombre: str, cedula: int, contraseña: str, correo: str):
+            self.nombre_completo: str = nombre
+            self.cedula: int = cedula
+            self.contraseña: str = contraseña
+            self.correo_electronico: str = correo
+            print("Perfil Registrado")
+
+
+    class Login:
+        def __init__(self, cedula: int, contraseña: str):
+            self.cedula: int = cedula
+            self.contraseña: str = contraseña
+        
+        def validar_contraseña(self, cedula: int, contraseña: str):
+            f = open("registros.txt", "r")
+            f.close
+            print(f)
+            print("Usuario logueado correctamente")
+            print("Bienvenido")
+
     
-    def olvido_contraseña(self):
-        COD = 33
-        print("---------------------------------------")
-        print(" SISTEMA DE RECUPERACION DE CONTRASEÑA")
-        print("---------------------------------------")
-        correo = input("Ingrese su correo electronico: ")
-        if correo == self.correo_electronico:
-            print("Correo enviado")
-            print(f"El codigo que llego al correo es {COD}")
-            codigo = int(input("Ingrese el codigo que fue enviado al correo: "))
-            if codigo == COD:
-                cedu = int(input("Ingrese su cedula: "))
-                if cedu == self.cedula:
-                    nue_clav = input("Ingrese su nueva clave: ")
-                    self.contraseña = nue_clav
-                    print("Contraseña cambiada con exito.")
-                    self.login()
+    class Cambiar_Contraseña:
+        def __init__(self, cedula: int, contraseña: str):
+            self.cedula: int = cedula
+            self.contraseña: str = contraseña
+
+    class Registrar_Vehiculo:
+        def __init__(self, tipo_vehiculo:str, placa: str):
+            self.tipo_vehiculo: str = tipo_vehiculo
+            self.placa: str = placa
+    
+    class Seleccionar_Celda:
+        def __init__(self):
+            pass
+            
+    class Reservar_Celda:
+        def __init__(self):
+            pass
+    
+    class Cancelar_Reserva:
+        def __init__(self, cedula: int):
+            self.cedula: int = cedula
+
+    class Descuento:
+        def __init__(self, cedula: int):
+            self.cedula: int = cedula
+
+    class Calcular_Pago:
+        def __init__(self):
+            pass
+
+    class Generar_Recibo:
+        def __init__(self):
+            pass
